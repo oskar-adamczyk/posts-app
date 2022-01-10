@@ -34,7 +34,7 @@ module RequestsSpecHelper
   end
 
   def json_api_post(headers: nil)
-    post url, headers: headers || json_api_headers, params: params.to_json
+    post url, params.to_json, headers || json_api_headers
   end
 
   def json_data_ids

@@ -22,6 +22,9 @@ require_relative "./support/requests_spec_helper"
 require_relative "../config/database"
 require_relative "../config/config"
 
+SimpleCov.start
+SimpleCov.minimum_coverage 95
+
 Dir[File.join __dir__, "./factories/", "*.rb"].each { |file| require_relative file }
 
 ActiveSupport::Dependencies.autoload_paths +=
@@ -73,22 +76,10 @@ RSpec.configure do |config|
   config.after :all do
     ActiveRecord::Base.remove_connection
   end
-  config.before :each do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.start
-  end
   config.after :each do
     DatabaseCleaner.clean
-  end
-  config.before(:each, type: :transactional) do
-    DatabaseCleaner.clean
     DatabaseCleaner.strategy = :truncation
-  end
-  config.after(:each, type: :transactional) do
-    DatabaseCleaner.strategy = :transaction
   end
 
   config.include RequestsSpecHelper, type: :request
 end
-
-SimpleCov.minimum_coverage 95

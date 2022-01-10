@@ -1,0 +1,58 @@
+{
+  "title": "api_v1_posts_create",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "$ref": "#/definitions/post/properties/attributes/properties/content"
+            },
+            "origin_ip": {
+              "$ref": "#/definitions/post/properties/attributes/properties/origin_ip"
+            },
+            "title": {
+              "$ref": "#/definitions/post/properties/attributes/properties/title"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "content",
+            "origin_ip",
+            "title"
+          ]
+        },
+        "id": {
+          "$ref": "#/definitions/post/properties/id"
+        },
+        "type": {
+          "$ref": "#/definitions/post/properties/type"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "attributes",
+        "id",
+        "type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data"
+  ],
+  "example": {
+    "data": {
+      "attributes": {
+        "content": "Example content",
+        "origin_ip": "127.0.0.1",
+        "title": "Example title"
+      },
+      "id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
+      "type": "posts"
+    }
+  }
+}

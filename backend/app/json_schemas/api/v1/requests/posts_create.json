@@ -1,0 +1,64 @@
+{
+  "title": "api_v1_posts_create",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "$ref": "#/definitions/post/properties/attributes/properties/content"
+            },
+            "origin_ip": {
+              "$ref": "#/definitions/post/properties/attributes/properties/origin_ip"
+            },
+            "title": {
+              "$ref": "#/definitions/post/properties/attributes/properties/title"
+            },
+            "user_email": {
+              "$ref": "#/definitions/user/properties/attributes/properties/email"
+            },
+            "additionalProperties": false,
+            "required": [
+              "email"
+            ]
+          },
+          "additionalProperties": false,
+          "required": [
+            "content",
+            "origin_ip",
+            "title",
+            "user_email"
+          ]
+        },
+        "type": {
+          "$ref": "#/definitions/post/properties/type"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "attributes",
+        "type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data"
+  ],
+  "example": {
+    "data": {
+      "attributes": {
+        "content": "Example content",
+        "origin_ip": "127.0.0.1",
+        "title": "Example title",
+        "user_attributes": {
+          "email": "test@example.com"
+        }
+      },
+      "type": "posts"
+    }
+  }
+}

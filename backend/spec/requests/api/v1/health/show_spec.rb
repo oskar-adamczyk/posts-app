@@ -8,10 +8,7 @@ RSpec.describe "API V1 health show", type: :request do
       let(:url) { "/api/v1/health" }
       let(:now) { Time.zone.now }
 
-      # before { travel_to now }
-      # after { travel_back }
-
-      context "returns service healthy status if service and his dependencies are healthy" do
+      context "when service and his dependencies are healthy" do
         before do
           expect_schema_validation_for fragment: "#/responses/health_show", namespace: %w[api v1]
           json_api_get
@@ -32,7 +29,7 @@ RSpec.describe "API V1 health show", type: :request do
         end
       end
 
-      context "returns service unavailable if service or any of his dependencies is failing" do
+      context "when service or any of his dependencies is failing" do
         before do
           allow_any_instance_of(HealthServices::DatabaseCheck).to receive(:call).and_return(
             HealthServices::Check::Result.new(health: Virtual::Health.new(id: now, status: :failing))
