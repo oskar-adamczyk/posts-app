@@ -2,6 +2,7 @@ AllCops:
   NewCops: enable
   DisplayCopNames: true
   Exclude:
+    - "db/schema.rb"
     - "vendor/**/*"
   TargetRubyVersion: 3.0.0
 

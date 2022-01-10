@@ -2,4 +2,6 @@
 .env
 coverage
 !coverage/.keep
+tmp
+!tmp/rubycritic/.keep
 vendor

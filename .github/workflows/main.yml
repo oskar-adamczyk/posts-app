@@ -1,0 +1,48 @@
+name: Build and test commit to main
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  COMPOSE_TEST_FILE_NAME: "docker-compose.test.yml"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        service: [backend]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Cache docker layers
+        uses: satackey/action-docker-layer-caching@v0.0.11
+
+      - name: Build image
+        run: |
+          docker-compose -f $GITHUB_WORKSPACE/$COMPOSE_TEST_FILE_NAME build --pull ${{ matrix.service }}
+
+  test:
+    needs: [build]
+    strategy:
+      matrix:
+        service: [backend]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Restore cache for docker layers
+        uses: satackey/action-docker-layer-caching@v0.0.11
+
+      - name: Run tests
+        run: docker-compose -f $GITHUB_WORKSPACE/$COMPOSE_TEST_FILE_NAME run --rm ${{ matrix.service }} /app/checks.sh

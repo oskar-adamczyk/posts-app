@@ -1,0 +1,8 @@
+threshold_score: 10
+no_browser: true
+minimum_score: 95
+paths:
+  - "app"
+  - "db/migrate"
+#  - "db/seeds"
+  - "config"

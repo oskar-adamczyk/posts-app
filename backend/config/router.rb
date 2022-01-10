@@ -9,7 +9,7 @@ class Router
     ["POST", true] => :create,
     ["POST", false] => :create
   }.freeze
-  ROUTES = YAML.load_file("config/routing.yaml")
+  ROUTES = YAML.load_file("config/routing.yml")
 
   def self.route(method:, path:)
     path_parts = path.split("/").reject(&:empty?)
