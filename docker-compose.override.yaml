@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  backend:
+    build:
+      target: dev
+    command: /app/docker/entrypoint.local.sh
+    ports:
+      - 3000:3000/tcp
+    volumes:
+      - ./backend:/app
+      - bundle:/app/vendor/bundle
+    env_file:
+      - ./backend/.env
+    labels:
+      - "traefik.backend=backend"
+      - "traefik.web.frontend.rule=Host:gateway.posts-app.localhost; PathPrefixStrip:/backend"
+      - "traefik.swagger.frontend.rule=Host:gateway.posts-app.localhost; PathPrefix:/backend-swagger"
+      - "traefik.passHostHeader=true"
+      - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Methods: OPTIONS,GET,POST,DELETE,PATCH,PUT"
+      - "traefik.frontend.headers.customResponseHeaders=Access-Control-Allow-Origin: *"
+      - "traefik.frontend.headers.customResponseHeaders=Access-Control-Max-Age: 100"
+      - "traefik.frontend.headers.customResponseHeaders=Add-Vary-Header: true"
+
+  db:
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  traefik:
+    image: traefik:1.7.16
+    command: -c /dev/null --web --docker --logLevel=INFO --traefikLog.filePath="/logs/traefik.log" --accessLog.filePath="/logs/access.log" --docker.watch
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./logs/traefik:/logs
+
+volumes:
+  bundle:
+  postgres:

@@ -1,0 +1,42 @@
+# frozen_string_literal: true
+
+require "active_record"
+require "dotenv"
+require_relative "config/database"
+
+ENV["ENVIRONMENT"] ||= "development"
+
+Dotenv.load
+
+def migrations
+  ActiveRecord::Base.establish_connection Database.config
+  ActiveRecord::Migration.new.migration_context.migrations
+end
+
+namespace :db do
+  desc "Create the database"
+  task :create do
+    ActiveRecord::Base.establish_connection Database.config.except(:database)
+    ActiveRecord::Base.connection.create_database Database.config.fetch(:database)
+  end
+
+  desc "Migrate the database"
+  task :migrate do
+    ActiveRecord::Migrator.new(:up, migrations, ActiveRecord::SchemaMigration).migrate
+    Rake::Task["db:schema"].invoke
+  end
+
+  desc "Migrate the database"
+  task :rollback do
+    ActiveRecord::Migrator.new(:down, migrations, ActiveRecord::SchemaMigration).migrate
+    Rake::Task["db:schema"].invoke
+  end
+
+  desc "Create a db/schema.rb"
+  task :schema do
+    ActiveRecord::Base.establish_connection Database.config
+    File.open "db/schema.rb", "w:utf-8" do |file|
+      ActiveRecord::SchemaDumper.dump ActiveRecord::Base.connection, file
+    end
+  end
+end
