@@ -1,0 +1,47 @@
+{
+  "title": "Health",
+  "type": "object",
+  "properties": {
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "healthy",
+            "failing"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "format": "datetime"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "healths"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "attributes",
+    "id",
+    "type"
+  ],
+  "examples": {
+    "base": {
+      "attributes": {
+        "status": "healthy"
+      },
+      "id": "2021-04-09T02:06:16Z",
+      "type": "healths"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Email",
+  "type": "string",
+  "format": "email",
+  "pattern": "^[^@\\s]+@[^@\\s]+[\\.][^@\\s]+$",
+  "maxLength": 254
+}

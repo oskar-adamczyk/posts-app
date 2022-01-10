@@ -1,0 +1,22 @@
+{
+  "title": "api_v1_health_show",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/definitions/health"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data"
+  ],
+  "example": {
+    "data": {
+      "attributes": {
+        "status": "healthy"
+      },
+      "id": "2021-04-09T02:06:16Z",
+      "type": "healths"
+    }
+  }
+}

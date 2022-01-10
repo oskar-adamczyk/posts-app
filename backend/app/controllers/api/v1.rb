@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+module Api
+  module V1
+    def schema_namespace
+      super << :v1
+    end
+  end
+end

@@ -1,0 +1,47 @@
+{
+  "title": "Links",
+  "type": "object",
+  "properties": {
+    "first": {
+      "type": "string",
+      "format": "uri"
+    },
+    "last": {
+      "type": "string",
+      "format": "uri"
+    },
+    "next": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "prev": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "self": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "first",
+    "last",
+    "next",
+    "prev",
+    "self"
+  ],
+  "example": {
+    "first": "http://example.com/api/consumer/v1/processes?page%5Bnumber%5D=1&page%5Bsize%5D=50",
+    "last": "http://example.com/api/consumer/v1/processes?page%5Bnumber%5D=1&page%5Bsize%5D=50",
+    "next": null,
+    "prev": null,
+    "self": "http://example.com/api/consumer/v1/processes?page%5Bnumber%5D=1&page%5Bsize%5D=50"
+  }
+}
