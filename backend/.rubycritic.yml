@@ -1,6 +1,6 @@
 threshold_score: 10
 no_browser: true
-minimum_score: 95
+minimum_score: 92
 paths:
   - "app"
   - "db/migrate"

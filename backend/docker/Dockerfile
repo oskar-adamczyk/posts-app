@@ -16,7 +16,7 @@ ENV NOKOGIRI_USE_SYSTEM_LIBRARIES=1
 
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock Rakefile ./
+COPY Gemfile Gemfile.lock ./
 
 RUN BUNDLE_WITHOUT=development:test bundle install
 
