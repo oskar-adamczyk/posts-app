@@ -21,7 +21,7 @@ class Router
       ]
     )
     validate_routes!(action, controller_parts.dup)
-    [action, "#{controller_parts.map(&:capitalize).join('::')}Controller".constantize, params.compact]
+    [action, "#{controller_parts.map(&:camelize).join('::')}Controller".constantize, params.compact.deep_symbolize_keys]
   end
 
   def self.resolve_actions(controller_parts, routes = ROUTES)

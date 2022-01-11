@@ -2,6 +2,7 @@
 
 class HealthSerializer < ActiveModel::Serializer
   type :healths
+
   attributes :status
 
   def id

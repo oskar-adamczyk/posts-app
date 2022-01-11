@@ -105,7 +105,7 @@ class AbstractController
     (
       (self.class.to_s.split("::")[schema_namespace.size..] || [])
         .map { |controller| controller.gsub "Controller", "" }
-        .map(&:downcase) << action
+        .map(&:underscore) << action
     ).join("_")
   end
 

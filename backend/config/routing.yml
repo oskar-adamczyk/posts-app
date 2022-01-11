@@ -2,6 +2,8 @@ api:
   v1:
     health:
       - show
+    origin_ips:
+      - index
     posts:
       - create
       - index

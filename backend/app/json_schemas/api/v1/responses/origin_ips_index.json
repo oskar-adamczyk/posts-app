@@ -1,0 +1,72 @@
+{
+  "title": "api_v1_origin_ips_index",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "authors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/user/properties/attributes/properties/email"
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "authors"
+            ]
+          },
+          "id": {
+            "$ref": "#/definitions/post/properties/attributes/properties/origin_ip"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "origin_ips"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "attributes",
+          "id",
+          "type"
+        ]
+      }
+    },
+    "links": {
+      "$ref": "#/commons/links"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data",
+    "links"
+  ],
+  "example": {
+    "data": [
+      {
+        "attributes": {
+          "authors": [
+            "test@example.com"
+          ]
+        },
+        "id": "127.0.0.1",
+        "type": "origin_ips"
+      }
+    ],
+    "links": {
+      "first": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50",
+      "last": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50",
+      "next": null,
+      "prev": null,
+      "self": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50"
+    }
+  }
+}
