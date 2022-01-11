@@ -55,10 +55,8 @@ RSpec.describe "API V1 posts create", type: :request do
           it { expect(last_response.status).to eq 400 }
         end
 
-        context "with already taken title" do
+        context "with already taken title", type: :transactional do
           before { json_api_post }
-
-          let(:title) { create(:post).title }
 
           it { expect(last_response.status).to eq 422 }
         end

@@ -1,33 +1,35 @@
 # frozen_string_literal: true
 
-class BaseFind < BaseService
+class BaseFetch < BaseService
   def initialize(**params)
     super(**params)
     raise ArgumentError, "Invalid conditions type" unless conditions_valid?
+    raise ArgumentError, "Invalid pagination type" unless pagination_valid?
 
     @conditions = params.fetch :conditions
+    @pagination = params.fetch :pagination
   end
 
   private
 
-  attr_reader :conditions, :resource
+  attr_reader :conditions, :pagination, :resources
 
   def conditions_valid?
     params.fetch(:conditions).is_a?(Hash) || params.fetch(:conditions).is_a?(Arel::Nodes::Node)
   end
 
-  def perform
-    ApplicationRecord.transaction do
-      find!
-
-      result
-    end
+  def pagination_valid?
+    params.fetch(:pagination).is_a? Pagination
   end
 
-  def find!
-    @resource = scope.find_by! conditions
-  rescue ActiveRecord::RecordNotFound
-    raise Errors::NotFound
+  def perform
+    fetch
+
+    result
+  end
+
+  def fetch
+    @resources = scope.where(conditions).page(pagination.page).per pagination.per_page
   end
 
   # :nocov:

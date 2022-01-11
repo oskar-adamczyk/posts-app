@@ -25,8 +25,8 @@ module RequestsSpecHelper
     ).and_call_original
   end
 
-  def json_api_get(headers: nil)
-    get url, nil, headers || json_api_headers
+  def json_api_get(params: nil, headers: nil)
+    get url, params, headers || json_api_headers
   end
 
   def json_api_headers

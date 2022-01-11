@@ -5,6 +5,5 @@ api:
     posts:
       - create
       - index
-      - show
       - ratings:
         - create

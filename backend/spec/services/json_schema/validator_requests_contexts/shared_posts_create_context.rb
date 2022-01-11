@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-Dir[File.join __dir__, "posts_create_subcontexts", "*.rb"].each { |file| require file }
-
 RSpec.shared_context "validating posts create", shared_context: :metadata do
   context "validating posts create" do
     let(:attributes) { valid_attrs }
@@ -9,31 +7,36 @@ RSpec.shared_context "validating posts create", shared_context: :metadata do
     let(:type) { "posts" }
     let(:namespace) { %w[api v1] }
 
-    context "when validating request" do
-      let(:valid_attrs) do
-        {
-          content: "test content",
-          origin_ip: "127.0.0.1",
-          title: "test title",
-          user_email: "test@example.com"
-        }
-      end
-      let(:fragment) { "#/requests/posts_create" }
+    let(:valid_attrs) do
+      {
+        content: "test content",
+        origin_ip: "127.0.0.1",
+        title: "test title",
+        user_email: "test@example.com"
+      }
+    end
+    let(:fragment) { "#/requests/posts_create" }
 
-      include_context "validating base posts create"
+    context "with valid attributes" do
+      it { expect { subject }.not_to raise_error }
     end
 
-    context "when validating response" do
-      let(:valid_attrs) do
-        {
-          content: "test content",
-          origin_ip: "127.0.0.1",
-          title: "test title"
-        }
-      end
-      let(:fragment) { "#/responses/posts_create" }
+    [
+      [{ data: { attributes: {} } }, "with missing attributes"],
+      [{ data: {} }, "missing attributes object"],
+      [{}, "missing data object"]
+    ].each do |attributes, description|
+      context "with #{description}" do
+        let(:body) { attributes }
 
-      include_context "validating base posts create"
+        it { expect { subject }.to raise_error Errors::BadRequest }
+      end
+    end
+
+    context "with invalid, singular type" do
+      let(:type) { "post" }
+
+      it { expect { subject }.to raise_error Errors::BadRequest }
     end
   end
 end

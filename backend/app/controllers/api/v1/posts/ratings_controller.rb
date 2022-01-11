@@ -5,7 +5,10 @@ module Api
     module Posts
       class RatingsController < BaseController
         def create
-          json res: created_rating, serializer: RatingSerializer, status: :created, include: :post
+          json res: created_rating,
+               serializer: RatingSerializer,
+               status: :created,
+               serialization_opts: { include: :post }
         end
 
         private

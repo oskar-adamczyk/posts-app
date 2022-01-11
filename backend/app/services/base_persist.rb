@@ -6,7 +6,7 @@ class BasePersist < BaseService
 
   def initialize(**params)
     super(**params)
-    raise ArgumentError "Invalid attributes type" unless attributes_valid?
+    raise ArgumentError, "Invalid attributes type" unless attributes_valid?
 
     @attributes = params.fetch :attributes
   end

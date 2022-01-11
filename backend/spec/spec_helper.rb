@@ -72,14 +72,24 @@ RSpec.configure do |config|
   config.define_derived_metadata { |meta| meta[:aggregate_failures] = true }
   config.before :all do
     ActiveRecord::Base.establish_connection Database.config
-    DatabaseCleaner.clean
     DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean
   end
   config.after :all do
     ActiveRecord::Base.remove_connection
   end
+  config.before :each do
+    DatabaseCleaner.start
+    DatabaseCleaner.strategy = :transaction
+  end
   config.after :each do
     DatabaseCleaner.clean
+  end
+  config.before(:each, type: :transactional) do
+    DatabaseCleaner.clean
+    DatabaseCleaner.strategy = :truncation
+  end
+  config.after(:each, type: :transactional) do
     DatabaseCleaner.strategy = :transaction
   end
 

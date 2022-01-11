@@ -3,8 +3,14 @@
 module Api
   module V1
     class PostsController < BaseController
+      include Concerns::Paginator
+
       def create
         json res: created_post, serializer: PostSerializer, status: :created
+      end
+
+      def index
+        json res: posts, serializer: ListedPostSerializer, status: :ok, serialization_opts: { collection?: true }
       end
 
       private
@@ -17,6 +23,10 @@ module Api
         @post_params ||= ActiveModelSerializers::Deserialization.jsonapi_parse!(
           params.deep_stringify_keys, only: %i[content origin_ip title user_email]
         )
+      end
+
+      def posts
+        @posts ||= PostServices::Fetch.call(conditions: {}, pagination: pagination).posts
       end
     end
   end

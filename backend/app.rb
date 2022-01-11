@@ -44,7 +44,9 @@ class App
 
       begin
         action, controller, params = Router.route method: request.request_method, path: request.path
-        controller.call(action: action, params: params, request: request, response: response)
+        controller.call(
+          action: action, params: params.merge(request.params.deep_symbolize_keys), request: request, response: response
+        )
       rescue Router::Error
         response.status = Rack::Utils.status_code :not_found
         response.body = {}

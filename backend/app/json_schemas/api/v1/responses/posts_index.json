@@ -1,0 +1,69 @@
+{
+  "title": "api_v1_posts_index",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "$ref": "#/definitions/post/properties/attributes/properties/content"
+              },
+              "title": {
+                "$ref": "#/definitions/post/properties/attributes/properties/title"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "content",
+              "title"
+            ]
+          },
+          "id": {
+            "$ref": "#/definitions/post/properties/id"
+          },
+          "type": {
+            "$ref": "#/definitions/post/properties/type"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "attributes",
+          "id",
+          "type"
+        ]
+      }
+    },
+    "links": {
+      "$ref": "#/commons/links"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data",
+    "links"
+  ],
+  "example": {
+    "data": [
+      {
+        "attributes": {
+          "content": "Example content",
+          "title": "Example title"
+        },
+        "id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
+        "type": "posts"
+      }
+    ],
+    "links": {
+      "first": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50",
+      "last": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50",
+      "next": null,
+      "prev": null,
+      "self": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50"
+    }
+  }
+}
