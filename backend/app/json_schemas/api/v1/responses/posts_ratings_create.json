@@ -1,0 +1,141 @@
+{
+  "title": "api_v1_posts_ratings_create",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "rate": {
+              "$ref": "#/definitions/rating/properties/attributes/properties/rate"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "rate"
+          ]
+        },
+//        "relationships": {
+//          "post": {
+//            "data": {
+//              "id": "4725f11d-c602-450c-a318-adcd3e4365a9",
+//              "type": "posts"
+//            }
+//          }
+//        },
+        "id": {
+          "$ref": "#/definitions/rating/properties/id"
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "post": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "$ref": "#/definitions/post/properties/id"
+                    },
+                    "type": {
+                      "$ref": "#/definitions/post/properties/type"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "type"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "data"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "post"
+          ]
+        },
+        "type": {
+          "$ref": "#/definitions/rating/properties/type"
+        }
+      },
+      "additionalProperties": true,
+      "required": [
+        "attributes",
+        "id",
+        "relationships",
+        "type"
+      ]
+    },
+    "included": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "average_rate": {
+                    "$ref": "#/definitions/post/properties/attributes/properties/average_rate"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "average_rate"
+                ]
+              },
+              "id": {
+                "$ref": "#/definitions/post/properties/id"
+              },
+              "type": {
+                "$ref": "#/definitions/post/properties/type"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data",
+    "included"
+  ],
+  "example": {
+    "data": {
+      "attributes": {
+        "rate": 1
+      },
+      "id": "b32fa4f3-879e-49f0-bb40-c54f612ab650",
+      "relationships": {
+        "post": {
+          "data": {
+            "id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
+            "type": "posts"
+          }
+        }
+      },
+      "type": "ratings"
+    },
+    "included": [
+      {
+        "attributes": {
+          "average_rate": 4.21
+        },
+        "id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
+        "type": "posts"
+      }
+    ]
+  }
+}

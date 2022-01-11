@@ -45,9 +45,9 @@ class AbstractController
     render_internal_server_error
   end
 
-  def json(res:, serializer:, status:, headers: {})
+  def json(res:, serializer:, status:, headers: {}, include: {})
     response.status = Rack::Utils.status_code status
-    body = ActiveModelSerializers::SerializableResource.new(res, serializer: serializer).as_json
+    body = ActiveModelSerializers::SerializableResource.new(res, serializer: serializer, include: include).as_json
     response.body = [body.to_json]
     response.set_header "Content-Type", JSON_API_HEADER
     headers.each_with_index { |header_value, header_key| response.set_header header_key, header_value }

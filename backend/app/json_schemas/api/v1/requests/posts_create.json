@@ -19,11 +19,7 @@
             },
             "user_email": {
               "$ref": "#/definitions/user/properties/attributes/properties/email"
-            },
-            "additionalProperties": false,
-            "required": [
-              "email"
-            ]
+            }
           },
           "additionalProperties": false,
           "required": [
@@ -54,9 +50,7 @@
         "content": "Example content",
         "origin_ip": "127.0.0.1",
         "title": "Example title",
-        "user_attributes": {
-          "email": "test@example.com"
-        }
+        "user_email": "test@example.com"
       },
       "type": "posts"
     }

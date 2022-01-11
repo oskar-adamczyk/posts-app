@@ -4,6 +4,7 @@ require "resolv"
 
 class Post < ApplicationRecord
   belongs_to :user
+  has_many :ratings
 
   validates :content,
             presence: true,

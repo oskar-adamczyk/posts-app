@@ -72,13 +72,15 @@ RSpec.configure do |config|
   config.define_derived_metadata { |meta| meta[:aggregate_failures] = true }
   config.before :all do
     ActiveRecord::Base.establish_connection Database.config
+    DatabaseCleaner.clean
+    DatabaseCleaner.strategy = :truncation
   end
   config.after :all do
     ActiveRecord::Base.remove_connection
   end
   config.after :each do
     DatabaseCleaner.clean
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :transaction
   end
 
   config.include RequestsSpecHelper, type: :request

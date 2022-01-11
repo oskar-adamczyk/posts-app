@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_132903) do
+ActiveRecord::Schema.define(version: 2022_01_12_232611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -27,7 +27,20 @@ ActiveRecord::Schema.define(version: 2022_01_12_132903) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "average_rate"
     t.index "lower((title)::text)", name: "index_posts_on_lower_title", unique: true, where: "(deleted_at IS NULL)"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.check_constraint "(average_rate >= (1)::double precision) AND (average_rate <= (5)::double precision)", name: "check_average_rate_range"
+  end
+
+  create_table "ratings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "rate", null: false
+    t.uuid "post_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_ratings_on_post_id"
+    t.check_constraint "(rate >= 1) AND (rate <= 5)", name: "check_rate_range"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -39,4 +52,5 @@ ActiveRecord::Schema.define(version: 2022_01_12_132903) do
   end
 
   add_foreign_key "posts", "users"
+  add_foreign_key "ratings", "posts"
 end

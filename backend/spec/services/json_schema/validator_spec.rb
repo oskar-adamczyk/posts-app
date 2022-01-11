@@ -20,4 +20,6 @@ describe JsonSchemaServices::Validate do
 
   include_context "validating health show"
   include_context "validating posts create"
+  include_context "validating posts ratings create request"
+  include_context "validating posts ratings create response"
 end

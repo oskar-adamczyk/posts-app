@@ -1,31 +1,19 @@
 {
-  "title": "Post",
+  "title": "Rating",
   "type": "object",
   "properties": {
     "attributes": {
       "type": "object",
       "properties": {
-        "average_rate": {
-          "type": "number",
-          "minimum": 0,
+        "rate": {
+          "type": "integer",
+          "minimum": 1,
           "maximum": 5
-        },
-        "content": {
-          "type": "string"
-        },
-        "origin_ip": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
         }
       },
       "additionalProperties": false,
       "required": [
-        "average_rate",
-        "content",
-        "origin_ip",
-        "title"
+        "rate"
       ]
     },
     "id": {
@@ -34,7 +22,7 @@
     "type": {
       "type": "string",
       "enum": [
-        "posts"
+        "ratings"
       ]
     }
   },
@@ -47,13 +35,10 @@
   "examples": {
     "base": {
       "attributes": {
-        "average_rate": 1.2,
-        "content": "Example content",
-        "origin_ip": "127.0.0.1",
-        "title": "Example title"
+        "rate": 1
       },
       "id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
-      "type": "posts"
+      "type": "ratings"
     }
   }
 }

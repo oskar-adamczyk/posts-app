@@ -7,7 +7,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.string :origin_ip, null: false, limit: 45
       t.string :title, null: false, limit: 256
 
-      t.references :user, type: :uuid, index: false, foreign_key: true, null: false
+      t.references :user, type: :uuid, index: true, foreign_key: true, null: false
 
       t.datetime :deleted_at
       t.timestamps null: false

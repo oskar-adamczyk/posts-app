@@ -20,7 +20,7 @@ class BasePersist < BaseService
   end
 
   def perform
-    ApplicationRecord.transaction do
+    ApplicationRecord.transaction(isolation: isolation) do
       run_callbacks :assign_attributes do
         resource.assign_attributes attributes
       end
@@ -33,6 +33,10 @@ class BasePersist < BaseService
 
       result
     end
+  end
+
+  def isolation
+    :read_committed
   end
 
   # :nocov:

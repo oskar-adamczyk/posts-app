@@ -1,0 +1,43 @@
+{
+  "title": "api_v1_posts_ratings_create",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "rate": {
+              "$ref": "#/definitions/rating/properties/attributes/properties/rate"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "rate"
+          ]
+        },
+        "type": {
+          "$ref": "#/definitions/rating/properties/type"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "attributes",
+        "type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data"
+  ],
+  "example": {
+    "data": {
+      "attributes": {
+        "rate": 1
+      },
+      "type": "ratings"
+    }
+  }
+}
