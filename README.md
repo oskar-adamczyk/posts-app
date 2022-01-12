@@ -1,9 +1,9 @@
-#UMAI Coding Assessment 
+# UMAI Coding Assessment 
 
-##Test for Ruby on Rails Developer at UMAI
+## Test for Ruby on Rails Developer at UMAI
 It is required to create a JSON API service in Ruby without using Ruby on Rails.
 
-###Used tools:
+### Used tools:
 - docker + docker-compose
 - traefik
 - postgres 13
@@ -12,7 +12,7 @@ It is required to create a JSON API service in Ruby without using Ruby on Rails.
 - ruby 3.0.3 with the most common gemset
 >some of gems are actually used by Rails framework as well, list is placed in [Gemfile](./backend/Gemfile)
 
-###Made assumptions:
+### Made assumptions:
 - Worker: for current need rufus scheduler should be enough,
 on next iteration it could be replaced with actual active job impelementation with usage of goodjob,
 another option could be sidekiq or something like that.
@@ -22,8 +22,8 @@ create action but I assumed it is more proper to use 201 (created) which is kind
 From my perspective, we should return created resource with link pointing to endpoint with
 listing feedbacks sorted by owner.
 
-###Potential improvements:
-####what I could do better if I had more time
+### Potential improvements:
+#### what I could do better if I had more time
 - Higher unit test coverage for json schema validator and service objects.
 - More flexible router, current IMHO is _good enough_.
 - Better app initializer separation - dedicated places for configs and setup of application.
