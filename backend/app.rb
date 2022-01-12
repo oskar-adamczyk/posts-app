@@ -42,6 +42,7 @@ class App
     schedule_jobs
 
     lambda { |environment|
+      Time.zone = "Europe/Berlin"
       request = Rack::Request.new environment
       response = Rack::Response.new
 
@@ -84,7 +85,6 @@ class App
     ActiveModelSerializers.config.jsonapi_pagination_links_enabled
     ActiveModelSerializers.config.key_transform = :unaltered
     GoodJob.retry_on_unhandled_error = false
-    Time.zone = "Europe/Berlin"
   end
 
   private_class_method :schedule_jobs, :setup
