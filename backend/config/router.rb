@@ -4,7 +4,6 @@ class Router
   class Error < StandardError; end
 
   CONTROLLER_ACTIONS = {
-    ["GET", true] => :show,
     ["GET", false] => :index,
     ["POST", true] => :create,
     ["POST", false] => :create
