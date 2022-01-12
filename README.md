@@ -4,20 +4,24 @@
 It is required to create a JSON API service in Ruby without using Ruby on Rails.
 
 ### How to run:
-####locally
+#### locally
 >_if not having postgres locally_
 > 
 > docker-compose up -d db
 
+```
 cd backend
 cp ./.env.example ./.env
 ruby main.rb
+```
 
 Application should be reachable on http://localhost:3000.
 
-####via docker
+#### via docker
+```
 cp ./backend/.env.example ./backend/./.env
 docker-compose up
+```
 
 Application should be reachable on http://localhost:3000 or (thanks to traefik) on http://gateway.posts-app.localhost.
 
