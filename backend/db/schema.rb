@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_232611) do
+ActiveRecord::Schema.define(version: 2022_01_13_131415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 2022_01_12_232611) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.string "comment"
+    t.bigint "commentable_id"
+    t.string "commentable_type"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_id", "commentable_type"], name: "index_feedbacks_on_commentable_id_and_commentable_type"
+  end
 
   create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "content", limit: 256, null: false
