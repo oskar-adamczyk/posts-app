@@ -1,5 +1,7 @@
 api:
   v1:
+    feedbacks:
+      - create
     health:
       - show
     origin_ips:

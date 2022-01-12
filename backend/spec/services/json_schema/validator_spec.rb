@@ -18,6 +18,7 @@ describe JsonSchemaServices::Validate do
   end
   let(:schema) { JsonSchemaServices::Read.call(namespace: namespace).schema }
 
+  include_context "validating feedbacks create"
   include_context "validating posts create"
   include_context "validating posts ratings create"
 end

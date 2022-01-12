@@ -7,8 +7,8 @@ RSpec.describe "API V1 posts ratings create", type: :request do
     context "creates ratings for post with given rate" do
       let(:url) { "/api/v1/posts/#{post_id}/ratings" }
       let(:post_id) { existing_post.id }
-      let(:existing_post) { create(:post, ratings: past_ratings) }
-      let(:past_ratings) { create_list(:rating, 1, rate: 2) }
+      let(:existing_post) { create :post, ratings: past_ratings }
+      let(:past_ratings) { create_list :rating, 1, rate: 2 }
       let(:params) do
         {
           data: {

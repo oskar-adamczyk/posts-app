@@ -10,6 +10,7 @@ RSpec.describe "API V1 health show", type: :request do
 
       context "when service and his dependencies are healthy" do
         before do
+          allow_any_instance_of(ActiveSupport::TimeZone).to receive(:now).and_return now
           expect_schema_validation_for fragment: "#/responses/health_show", namespace: %w[api v1]
           json_api_get
         end

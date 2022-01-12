@@ -19,14 +19,17 @@ ActiveRecord::Schema.define(version: 2022_01_13_131415) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "feedbacks", force: :cascade do |t|
+  create_table "feedbacks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "comment"
-    t.bigint "commentable_id"
+    t.uuid "commentable_id"
     t.string "commentable_type"
+    t.uuid "user_id", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_id", "commentable_type", "user_id"], name: "index_feedbacks_commentable_user", unique: true, where: "(deleted_at IS NULL)"
     t.index ["commentable_id", "commentable_type"], name: "index_feedbacks_on_commentable_id_and_commentable_type"
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
   create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -61,6 +64,7 @@ ActiveRecord::Schema.define(version: 2022_01_13_131415) do
     t.index "lower((email)::text)", name: "index_users_on_lower_email", unique: true, where: "(deleted_at IS NULL)"
   end
 
+  add_foreign_key "feedbacks", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "ratings", "posts"
 end

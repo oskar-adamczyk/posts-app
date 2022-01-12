@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "./shared_json_api_context"
+
 RSpec.shared_context "validating posts ratings create", shared_context: :metadata do
   context "validating posts ratings create" do
     let(:valid_attrs) { { rate: 1 } }
@@ -7,10 +9,6 @@ RSpec.shared_context "validating posts ratings create", shared_context: :metadat
     let(:type) { "ratings" }
     let(:fragment) { "#/requests/posts_ratings_create" }
     let(:namespace) { %w[api v1] }
-
-    context "with valid attributes" do
-      it { expect { subject }.not_to raise_error }
-    end
 
     [
       [{ data: { attributes: { rate: "1" } } }, "string rate"],
@@ -32,5 +30,7 @@ RSpec.shared_context "validating posts ratings create", shared_context: :metadat
 
       it { expect { subject }.to raise_error Errors::BadRequest }
     end
+
+    include_context "validating base json api body context"
   end
 end

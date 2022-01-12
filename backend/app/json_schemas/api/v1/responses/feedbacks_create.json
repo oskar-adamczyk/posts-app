@@ -1,0 +1,195 @@
+{
+  "title": "api_v1_feedbacks_create",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "comment": {
+                "$ref": "#/definitions/feedback/properties/attributes/properties/comment"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "comment"
+            ]
+          },
+          "id": {
+            "$ref": "#/definitions/feedback/properties/id"
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "owner": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "$ref": "#/definitions/user/properties/id"
+                      },
+                      "type": {
+                        "$ref": "#/definitions/user/properties/type"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "type"
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "data"
+                ]
+              },
+              "post": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "$ref": "#/definitions/post/properties/id"
+                          },
+                          "type": {
+                            "$ref": "#/definitions/post/properties/type"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "data"
+                ]
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "$ref": "#/definitions/user/properties/id"
+                          },
+                          "type": {
+                            "$ref": "#/definitions/user/properties/type"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "type"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "data"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "owner",
+              "post",
+              "user"
+            ]
+          },
+          "type": {
+            "$ref": "#/definitions/feedback/properties/type"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "attributes",
+          "id",
+          "relationships",
+          "type"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data"
+  ],
+  "example": {
+    "data": [
+      {
+        "attributes": {
+          "comment": "example comment"
+        },
+        "id": "cc0dfa21-c4e1-4d54-bf80-cde5b04b942e",
+        "relationships": {
+          "owner": {
+            "data": {
+              "id": "9c0dfa21-c4e1-4d54-bf80-cde5b04b942e",
+              "type": "users"
+            }
+          },
+          "post": {
+            "data": {
+              "id": "1b011766-65bf-40fd-9d52-286a99dec130",
+              "type": "posts"
+            }
+          },
+          "user": {
+            "data": null
+          }
+        },
+        "type": "feedbacks"
+      },
+      {
+        "attributes": {
+          "comment": "example comment"
+        },
+        "id": "ac0dfa21-c4e1-4d54-bf80-cde5b04b942e",
+        "relationships": {
+          "owner": {
+            "data": {
+              "id": "9c0dfa21-c4e1-4d54-bf80-cde5b04b942e",
+              "type": "users"
+            }
+          },
+          "post": {
+            "data": null
+          },
+          "user": {
+            "data": {
+              "id": "2b011766-65bf-40fd-9d52-286a99dec130",
+              "type": "users"
+            }
+          }
+        },
+        "type": "feedbacks"
+      }
+    ]
+  }
+}

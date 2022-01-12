@@ -4,11 +4,11 @@ FactoryBot.define do
   factory :feedback do
     comment { Faker::Movies::LordOfTheRings.quote }
 
-    trait :post do
+    trait :for_post do
       commentable { build(:post) }
     end
 
-    trait :user do
+    trait :for_user do
       commentable { build(:user) }
     end
   end

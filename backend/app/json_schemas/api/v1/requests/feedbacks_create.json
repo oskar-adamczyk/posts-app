@@ -1,0 +1,78 @@
+{
+  "title": "api_v1_feedbacks_create",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "comment": {
+                  "$ref": "#/definitions/feedback/properties/attributes/properties/comment"
+                },
+                "owner_id": {
+                  "$ref": "#/definitions/user/properties/id"
+                },
+                "post_id": {
+                  "$ref": "#/definitions/post/properties/id"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "comment",
+                "owner_id",
+                "post_id"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "comment": {
+                  "$ref": "#/definitions/feedback/properties/attributes/properties/comment"
+                },
+                "owner_id": {
+                  "$ref": "#/definitions/user/properties/id"
+                },
+                "user_id": {
+                  "$ref": "#/definitions/user/properties/id"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "comment",
+                "owner_id",
+                "user_id"
+              ]
+            }
+          ]
+        },
+        "type": {
+          "$ref": "#/definitions/feedback/properties/type"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "attributes",
+        "type"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "data"
+  ],
+  "example": {
+    "data": {
+      "attributes": {
+        "comment": "Example comment",
+        "owner_id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
+        "post_id": "b32fa4f3-879e-49f0-bb40-c54f612ab650",
+        "user_id": "a32fa4f3-879e-49f0-bb40-c54f612ab650"
+      },
+      "type": "feedbacks"
+    }
+  }
+}

@@ -1,37 +1,22 @@
 {
-  "title": "Post",
+  "title": "Feedback",
   "type": "object",
   "properties": {
     "attributes": {
       "type": "object",
       "properties": {
-        "average_rate": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 5
-        },
-        "content": {
+        "comment": {
           "type": "string",
           "maxLength": 256,
           "minLength": 2
-        },
-        "origin_ip": {
-          "type": "string",
-          "maxLength": 15,
-          "minLength": 7
         },
         "title": {
-          "type": "string",
-          "maxLength": 256,
-          "minLength": 2
+          "type": "string"
         }
       },
       "additionalProperties": false,
       "required": [
-        "average_rate",
-        "content",
-        "origin_ip",
-        "title"
+        "comment"
       ]
     },
     "id": {
@@ -40,7 +25,7 @@
     "type": {
       "type": "string",
       "enum": [
-        "posts"
+        "feedbacks"
       ]
     }
   },
@@ -53,13 +38,10 @@
   "examples": {
     "base": {
       "attributes": {
-        "average_rate": 1.2,
-        "content": "Example content",
-        "origin_ip": "127.0.0.1",
-        "title": "Example title"
+        "comment": "Example comment"
       },
       "id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
-      "type": "posts"
+      "type": "feedbacks"
     }
   }
 }

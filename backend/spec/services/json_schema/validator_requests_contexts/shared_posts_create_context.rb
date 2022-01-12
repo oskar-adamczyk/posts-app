@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "./shared_json_api_context"
+
 RSpec.shared_context "validating posts create", shared_context: :metadata do
   context "validating posts create" do
     let(:attributes) { valid_attrs }
@@ -9,25 +11,33 @@ RSpec.shared_context "validating posts create", shared_context: :metadata do
 
     let(:valid_attrs) do
       {
-        content: "test content",
+        content: content,
         origin_ip: "127.0.0.1",
-        title: "test title",
+        title: title,
         user_email: "test@example.com"
       }
     end
+    let(:content) { "test content" }
+    let(:title) { "test title" }
     let(:fragment) { "#/requests/posts_create" }
 
-    context "with valid attributes" do
-      it { expect { subject }.not_to raise_error }
+    [
+      ["a", "too short content"],
+      [257.times.map { "a" }.join, "too long content"]
+    ].each do |content, description|
+      context "with #{description}" do
+        let(:content) { content }
+
+        it { expect { subject }.to raise_error Errors::BadRequest }
+      end
     end
 
     [
-      [{ data: { attributes: {} } }, "with missing attributes"],
-      [{ data: {} }, "missing attributes object"],
-      [{}, "missing data object"]
-    ].each do |attributes, description|
+      ["a", "too short title"],
+      [257.times.map { "a" }.join, "too long title"]
+    ].each do |title, description|
       context "with #{description}" do
-        let(:body) { attributes }
+        let(:title) { title }
 
         it { expect { subject }.to raise_error Errors::BadRequest }
       end
@@ -38,5 +48,7 @@ RSpec.shared_context "validating posts create", shared_context: :metadata do
 
       it { expect { subject }.to raise_error Errors::BadRequest }
     end
+
+    include_context "validating base json api body context"
   end
 end

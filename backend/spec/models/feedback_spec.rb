@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Feedback, type: :model do
-  subject { build :feedback, :user }
+  subject { build :feedback, :for_user }
 
   it { is_expected.to belong_to :commentable }
   it { is_expected.to validate_presence_of :comment }

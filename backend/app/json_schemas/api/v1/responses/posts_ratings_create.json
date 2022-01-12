@@ -17,14 +17,6 @@
             "rate"
           ]
         },
-//        "relationships": {
-//          "post": {
-//            "data": {
-//              "id": "4725f11d-c602-450c-a318-adcd3e4365a9",
-//              "type": "posts"
-//            }
-//          }
-//        },
         "id": {
           "$ref": "#/definitions/rating/properties/id"
         },
