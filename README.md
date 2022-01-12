@@ -13,6 +13,8 @@ It is required to create a JSON API service in Ruby without using Ruby on Rails.
 >some of gems are actually used by Rails framework as well, list is placed in [Gemfile](./backend/Gemfile)
 
 ### Made assumptions:
+- Entities: replaced login with email for user, just it is quite common to have login as email +
+we can test and present some validation of json schema, active model inside unit tests layer.
 - Worker: for current need rufus scheduler should be enough,
 on next iteration it could be replaced with actual active job impelementation with usage of goodjob,
 another option could be sidekiq or something like that.
