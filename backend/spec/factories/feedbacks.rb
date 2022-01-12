@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :feedback do
     comment { Faker::Movies::LordOfTheRings.quote }
+    owner { build :user }
 
     trait :for_post do
       commentable { build(:post) }

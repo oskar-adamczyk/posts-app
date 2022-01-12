@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_131415) do
+ActiveRecord::Schema.define(version: 2022_01_13_153609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -32,6 +32,21 @@ ActiveRecord::Schema.define(version: 2022_01_13_131415) do
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
+  create_table "good_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "active_job_id"
+    t.text "error"
+    t.datetime "finished_at"
+    t.datetime "performed_at"
+    t.integer "priority"
+    t.text "queue_name"
+    t.datetime "scheduled_at"
+    t.jsonb "serialized_params"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
+    t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
+  end
+
   create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "content", limit: 256, null: false
     t.string "origin_ip", limit: 45, null: false
@@ -40,10 +55,10 @@ ActiveRecord::Schema.define(version: 2022_01_13_131415) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "average_rate"
+    t.float "average_rate", default: 0.0
     t.index "lower((title)::text)", name: "index_posts_on_lower_title", unique: true, where: "(deleted_at IS NULL)"
     t.index ["user_id"], name: "index_posts_on_user_id"
-    t.check_constraint "(average_rate >= (1)::double precision) AND (average_rate <= (5)::double precision)", name: "check_average_rate_range"
+    t.check_constraint "((average_rate >= (1)::double precision) AND (average_rate <= (5)::double precision)) OR (average_rate = (0)::double precision)", name: "check_average_rate_range"
   end
 
   create_table "ratings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

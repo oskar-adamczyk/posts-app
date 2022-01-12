@@ -11,10 +11,6 @@ module RequestsSpecHelper
     App.init
   end
 
-  def current_time
-    @current_time ||= Time.current
-  end
-
   def expect_schema_validation_for(fragment:, namespace:, body: nil)
     expect(JsonSchemaServices::Validate).to receive(:new).with(
       hash_including(

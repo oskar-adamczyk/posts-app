@@ -3,6 +3,13 @@
 class Feedback < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :owner, class_name: User.name, foreign_key: :user_id
+  belongs_to :post, foreign_key: "commentable_id"
+
+  def post
+    return unless commentable_type == Post.name
+
+    super
+  end
 
   validates :comment,
             presence: true,

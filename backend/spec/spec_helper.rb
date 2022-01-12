@@ -94,4 +94,11 @@ RSpec.configure do |config|
   end
 
   config.include RequestsSpecHelper, type: :request
+
+  ActiveJob::Base.logger = Logger.new(nil)
+  ActiveModelSerializers.logger.level = Logger::Severity::UNKNOWN
+  Bullet.enable = true
+  Bullet.bullet_logger = false
+  Bullet.raise = true
+  Bullet.unused_eager_loading_enable = false
 end

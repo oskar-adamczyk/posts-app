@@ -29,6 +29,7 @@ ActiveSupport::Dependencies.autoload_paths +=
   %w[
     app/controllers
     app/errors
+    app/jobs
     app/models
     app/serializers
     app/services
@@ -37,8 +38,10 @@ ActiveSupport::Dependencies.autoload_paths +=
 
 class App
   def self.init
+    setup
+    schedule_jobs
+
     lambda { |environment|
-      setup
       request = Rack::Request.new environment
       response = Rack::Response.new
 
@@ -58,13 +61,31 @@ class App
 
   private
 
+  def self.schedule_jobs
+    return if PostsApp.test?
+
+    Rufus::Scheduler.new.tap do |scheduler|
+      scheduler.cron PostsApp.config.feedbacks_report_crontab do
+        Time.zone = "Europe/Berlin"
+
+        FeedbacksReportJob.perform_now
+      end
+    end
+  end
+
   def self.setup
+    ActiveJob::Base.queue_adapter = ActiveJob::QueueAdapters::GoodJobAdapter.new(
+      execution_mode: :async,
+      max_threads: 2,
+      start_async_on_initialize: true
+    )
     ActiveRecord::Base.establish_connection Database.config
     ActiveModelSerializers.config.adapter = :json_api
     ActiveModelSerializers.config.jsonapi_pagination_links_enabled
     ActiveModelSerializers.config.key_transform = :unaltered
+    GoodJob.retry_on_unhandled_error = false
     Time.zone = "Europe/Berlin"
   end
 
-  private_class_method :setup
+  private_class_method :schedule_jobs, :setup
 end

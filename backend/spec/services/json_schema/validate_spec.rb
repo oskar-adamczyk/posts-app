@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+
 Dir[File.join __dir__, "validator_requests_contexts", "*.rb"].each { |file| require file }
 
 describe JsonSchemaServices::Validate do
