@@ -23,6 +23,16 @@ cp ./backend/.env.example ./backend/./.env
 docker-compose up
 ```
 
+### How to perform database operations:
+#### optionally prepend it with environment variable ENVIRONMENT=test for creating and migrating test database
+```
+cd backend 
+rake db:create
+rake db:migrate (will rollback all migrations at once)
+rake db:rollback
+rake db:seeds (it can be configuratble via .env file or environment variables)
+```
+
 Application should be reachable on http://localhost:3000 or (thanks to traefik) on http://gateway.posts-app.localhost.
 
 ### Used tools:
