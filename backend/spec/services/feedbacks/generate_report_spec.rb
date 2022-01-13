@@ -22,7 +22,10 @@ describe FeedbackServices::GenerateReport do
   before { allow_any_instance_of(ActiveSupport::TimeZone).to receive(:now).and_return now }
   after { subject }
 
-  it { expect(File).to receive(:write).with "tmp/feedbacks_reports/#{now.iso8601}_feedbacks-report.xml", expected_xml_content }
+  it {
+    expect(File).to receive(:write).with "tmp/feedbacks_reports/#{now.iso8601}_feedbacks-report.xml",
+                                         expected_xml_content
+  }
 
   context "with submitted feedbacks" do
     let!(:feedbacks) do
@@ -32,6 +35,9 @@ describe FeedbackServices::GenerateReport do
         for_user: create(:feedback, :for_user)
       }
     end
-    it { expect(File).to receive(:write).with "tmp/feedbacks_reports/#{now.iso8601}_feedbacks-report.xml", expected_xml_content }
+    it {
+      expect(File).to receive(:write).with "tmp/feedbacks_reports/#{now.iso8601}_feedbacks-report.xml",
+                                           expected_xml_content
+    }
   end
 end
