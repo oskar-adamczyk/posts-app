@@ -3,5 +3,5 @@
 class OriginIpSerializer < ActiveModel::Serializer
   type :origin_ips
 
-  attributes :authors
+  attributes :address, :authors
 end

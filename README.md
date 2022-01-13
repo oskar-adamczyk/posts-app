@@ -44,7 +44,8 @@ another option could be sidekiq or something like that.
 create action but I assumed it is more proper to use 201 (created) which is kinda dedicated for such actions
 - API - submitting feedback - I am not sure if it is good idea to return list of resources after create action.
 From my perspective, we should return created resource with link pointing to endpoint with
-listing feedbacks sorted by owner.
+listing feedbacks filtered by owner. Currently, pagination is not introduced, from my perspective it should be introduced
+but in mentioned, index endpoint linked in response.
 
 ### Potential improvements:
 #### what I could do better if I had more time

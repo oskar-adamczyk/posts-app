@@ -77,12 +77,12 @@ class App
   def self.setup
     ActiveJob::Base.queue_adapter = ActiveJob::QueueAdapters::GoodJobAdapter.new(
       execution_mode: :async,
-      max_threads: 2,
+      max_threads: PostsApp.config.good_job.max_threads,
       start_async_on_initialize: true
     )
     ActiveRecord::Base.establish_connection Database.config
     ActiveModelSerializers.config.adapter = :json_api
-    ActiveModelSerializers.config.jsonapi_pagination_links_enabled
+    ActiveModelSerializers.config.jsonapi_pagination_links_enabled = PostsApp.config.json_api.pagination_links_enabled
     ActiveModelSerializers.config.key_transform = :unaltered
     GoodJob.retry_on_unhandled_error = false
   end

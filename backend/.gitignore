@@ -3,5 +3,6 @@
 coverage
 !coverage/.keep
 tmp
+!tmp/feedbacks_reports/.keep
 !tmp/rubycritic/.keep
 vendor

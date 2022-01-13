@@ -2,11 +2,14 @@
 
 require "active_record"
 require "dotenv"
-require_relative "config/database"
 
 ENV["ENVIRONMENT"] ||= "development"
+Bundler.require :default, ENV.fetch("ENVIRONMENT").to_sym
 
 Dotenv.load
+
+require_relative "config/config"
+require_relative "config/database"
 
 def migrations
   ActiveRecord::Base.establish_connection Database.config
@@ -35,8 +38,9 @@ namespace :db do
   desc "Create a db/schema.rb"
   task :schema do
     ActiveRecord::Base.establish_connection Database.config
-    File.open "db/schema.rb", "w:utf-8" do |file|
-      ActiveRecord::SchemaDumper.dump ActiveRecord::Base.connection, file
-    end
+    File.open("db/schema.rb", "w:utf-8") { |file| ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file) }
   end
+
+  desc "Seeds database with test data"
+  task(:seeds) { require_relative "db/seeds" }
 end

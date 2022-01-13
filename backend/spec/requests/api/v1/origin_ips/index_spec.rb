@@ -6,15 +6,13 @@ RSpec.describe "API V1 origin ips index", type: :request do
   describe "/origin_ips" do
     context "lists origin ips for given parameters" do
       let(:url) { "/api/v1/origin_ips" }
-      let(:repeated_origin_ip) { "127.0.0.1" }
 
       context "with valid sorting parameter" do
-        let!(:posts) do
-          {
-            single_author: create(:post),
-            repeated_author_1: create(:post, origin_ip: repeated_origin_ip),
-            repeated_author_2: create(:post, origin_ip: repeated_origin_ip)
-          }
+        let!(:origin_ips) do
+          [
+            create(:origin_ip, authors: 2.times.map { Faker::Internet.email }),
+            create(:origin_ip)
+          ]
         end
         let(:params) { { page: { number: 1, size: 2 } } }
         before do
@@ -28,19 +26,18 @@ RSpec.describe "API V1 origin ips index", type: :request do
             .to include(
               {
                 "attributes" => {
-                  "authors" => [
-                    posts[:repeated_author_1].user.email,
-                    posts[:repeated_author_2].user.email
-                  ]
+                  "address" => origin_ips.first.address,
+                  "authors" => origin_ips.first.authors
                 },
-                "id" => repeated_origin_ip,
+                "id" => origin_ips.first.id,
                 "type" => "origin_ips"
               },
               {
                 "attributes" => {
-                  "authors" => [posts[:single_author].user.email]
+                  "address" => origin_ips.second.address,
+                  "authors" => origin_ips.second.authors
                 },
-                "id" => posts[:single_author].origin_ip,
+                "id" => origin_ips.second.id,
                 "type" => "origin_ips"
               }
             )

@@ -10,26 +10,24 @@
           "attributes": {
             "type": "object",
             "properties": {
+              "address": {
+                "$ref": "#/definitions/origin_ip/properties/attributes/properties/address"
+              },
               "authors": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/user/properties/attributes/properties/email"
-                }
+                "$ref": "#/definitions/origin_ip/properties/attributes/properties/authors"
               }
             },
             "additionalProperties": false,
             "required": [
+              "address",
               "authors"
             ]
           },
           "id": {
-            "$ref": "#/definitions/post/properties/attributes/properties/origin_ip"
+            "$ref": "#/definitions/origin_ip/properties/id"
           },
           "type": {
-            "type": "string",
-            "enum": [
-              "origin_ips"
-            ]
+            "$ref": "#/definitions/origin_ip/properties/type"
           }
         },
         "additionalProperties": false,
@@ -46,27 +44,27 @@
   },
   "additionalProperties": false,
   "required": [
-    "data",
-    "links"
+    "data"
   ],
   "example": {
     "data": [
       {
         "attributes": {
+          "address": "127.0.0.1",
           "authors": [
             "test@example.com"
           ]
         },
-        "id": "127.0.0.1",
+        "id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
         "type": "origin_ips"
       }
     ],
     "links": {
-      "first": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50",
-      "last": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50",
+      "first": "http://example.com/api/v1/origin_ips?page%5Bnumber%5D=1&page%5Bsize%5D=50",
+      "last": "http://example.com/api/v1/origin_ips?page%5Bnumber%5D=1&page%5Bsize%5D=50",
       "next": null,
       "prev": null,
-      "self": "http://example.com/api/v1/posts?page%5Bnumber%5D=1&page%5Bsize%5D=50"
+      "self": "http://example.com/api/v1/origin_ips?page%5Bnumber%5D=1&page%5Bsize%5D=50"
     }
   }
 }

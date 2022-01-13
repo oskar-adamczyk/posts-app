@@ -44,8 +44,7 @@
   },
   "additionalProperties": false,
   "required": [
-    "data",
-    "links"
+    "data"
   ],
   "example": {
     "data": [

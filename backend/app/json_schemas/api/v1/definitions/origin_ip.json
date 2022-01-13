@@ -1,0 +1,54 @@
+{
+  "title": "Origin Ip",
+  "type": "object",
+  "properties": {
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "maxLength": 15,
+          "minLength": 7
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/user/properties/attributes/properties/email"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "address",
+        "authors"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "origin_ips"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "attributes",
+    "id",
+    "type"
+  ],
+  "examples": {
+    "base": {
+      "attributes": {
+        "address": "127.0.0.1",
+        "authors": [
+          "test@example.com"
+        ]
+      },
+      "id": "a32fa4f3-879e-49f0-bb40-c54f612ab650",
+      "type": "origin_ips"
+    }
+  }
+}

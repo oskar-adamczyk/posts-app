@@ -18,7 +18,7 @@ module FeedbackServices
         }
       end.to_xml skip_instruct: true
 
-      File.write("tmp/#{Time.zone.now.iso8601}_feedbacks-report.xml", xml_content)
+      File.write("tmp/feedbacks_reports/#{Time.zone.now.iso8601}_feedbacks-report.xml", xml_content)
 
       Result.new feedbacks_ids: feedbacks.pluck(:id)
     end

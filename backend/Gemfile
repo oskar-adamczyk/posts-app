@@ -27,6 +27,7 @@ group :development, :test do
   gem "dotenv"
   gem "factory_bot", ">= 6.2.0"
   gem "faker"
+  gem "progress_bar"
   gem "rexml"
   gem "rspec-core", "~> 3.10.1"
   gem "rspec-expectations", "~> 3.10.1"

@@ -4,5 +4,5 @@ minimum_score: 92
 paths:
   - "app"
   - "db/migrate"
-#  - "db/seeds"
+  - "db/seeds"
   - "config"

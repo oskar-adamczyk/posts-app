@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_153609) do
+ActiveRecord::Schema.define(version: 2022_01_14_041253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 2022_01_13_153609) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "origin_ips", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "address", limit: 45, null: false
+    t.json "authors", default: [], null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address"], name: "index_origin_ips_on_address", unique: true, where: "(deleted_at IS NULL)"
+  end
+
   create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "content", limit: 256, null: false
     t.string "origin_ip", limit: 45, null: false
@@ -57,6 +66,7 @@ ActiveRecord::Schema.define(version: 2022_01_13_153609) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "average_rate", default: 0.0
     t.index "lower((title)::text)", name: "index_posts_on_lower_title", unique: true, where: "(deleted_at IS NULL)"
+    t.index ["average_rate"], name: "index_posts_on_average_rate", where: "(deleted_at IS NULL)"
     t.index ["user_id"], name: "index_posts_on_user_id"
     t.check_constraint "((average_rate >= (1)::double precision) AND (average_rate <= (5)::double precision)) OR (average_rate = (0)::double precision)", name: "check_average_rate_range"
   end
