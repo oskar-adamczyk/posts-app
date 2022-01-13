@@ -9,6 +9,7 @@ services:
       - ./backend/.env.example
     environment:
       ENVIRONMENT: test
+      JSON_API_PAGINATION_LINKS_ENABLED: 1
     depends_on:
       - db
 
