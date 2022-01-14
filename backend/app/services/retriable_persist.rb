@@ -25,7 +25,7 @@ class RetriablePersist < BasePersist
     super
   rescue ActiveRecord::SerializationFailure => e
     # TODO: better log and monitor error
-    pp "SerializationFailure", e.backtrace
+    pp "SerializationFailure", e, e.backtrace
     raise_serialization_failure! e if max_retries_reached?
 
     @retry_attempt += 1

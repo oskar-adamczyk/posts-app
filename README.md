@@ -45,6 +45,11 @@ Application should be reachable on http://localhost:3000 or (thanks to traefik) 
 >some of gems are actually used by Rails framework as well, list is placed in [Gemfile](./backend/Gemfile)
 
 ### Made assumptions:
+- Requirement: `Important: the action must work correctly for any number of competitive requests to rate the same
+post.` - I assumed that `work correctly` means it should work in separation and correctly calculate average post
+rating. To achieve that, I have introduced retriable service which is **simplification** of circuit breaker design 
+pattern. It allows us to retry failed transaction if it failed due to locked resource - I used serializable as
+post rate transaction isolation level.
 - Entities: replaced login with email for user, just it is quite common to have login as email +
 we can test and present some validation of json schema, active model inside unit tests layer.
 - Worker: for current need rufus scheduler should be enough,
@@ -59,6 +64,7 @@ but in mentioned, index endpoint linked in response.
 
 ### Potential improvements:
 #### what I could do better if I had more time
+- Better logging and integrating monitoring/log aggregation tools (Sentry and/or DataDog/Graylog)
 - Higher unit test coverage for json schema validator and service objects.
 - More flexible router, current IMHO is _good enough_.
 - Better app initializer separation - dedicated places for configs and setup of application.

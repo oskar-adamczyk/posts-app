@@ -14,7 +14,7 @@ module Api
         private
 
         def created_rating
-          @created_rating ||= RatingServices::RatePost.call(attributes: { **rating_params }, max_retries: 5).rating
+          @created_rating ||= RatingServices::RatePost.call(attributes: { **rating_params }, max_retries: 10).rating
         end
 
         def rating_params
